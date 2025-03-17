@@ -163,3 +163,31 @@ def create_trip(request):
         }, status=status.HTTP_201_CREATED)
 
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET'])
+def get_all_trips(request):
+    """
+    This will retrieve all trips with their logs.
+    """
+    trips = Trip.objects.all()
+    serialized_trips = TripSerializer(trips, many=True).data
+    return Response(serialized_trips, status=status.HTTP_200_OK)
+
+@api_view(['GET'])
+def get_trip_by_id(request, trip_id):
+    """
+    This will retrieve a specific trip by ID, including logs and details.
+    """
+    try:
+        trip = Trip.objects.get(id=trip_id)
+    except Trip.DoesNotExist:
+        return Response({"error": "Trip not found"}, status=status.HTTP_404_NOT_FOUND)
+
+    trip_data = TripSerializer(trip).data
+    logs = Log.objects.filter(trip=trip)
+    logs_data = LogSerializer(logs, many=True).data
+
+    return Response({
+        "trip": trip_data,
+        "logs": logs_data
+    }, status=status.HTTP_200_OK)
