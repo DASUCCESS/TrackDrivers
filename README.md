@@ -207,5 +207,5 @@ This project is **open-source** and available under the **MIT License**.
 
 ---
 
-### **Built With ❤️ by [Bolaji M. Luqman]**
-Let me know if you need any edits! 🔥
+### **Built With ❤️ by [Bolaji M. Luqman]** Send me a DM ON X @Bruteforce_code for your project.
+
